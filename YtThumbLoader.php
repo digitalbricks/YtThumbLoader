@@ -138,6 +138,8 @@ class YtThumbLoader{
         // return url of the downloaded thumbnail
         if($success){
             return $this->getCacheBaseUrl()."/".$this->getVideoID().".jpg";
+        } else {
+            return false;
         }
     }
 
