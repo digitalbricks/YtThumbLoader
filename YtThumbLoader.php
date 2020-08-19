@@ -6,8 +6,6 @@ class YtThumbLoader{
     private $cacheBaseUrl = "";
     private $ytBaseUrl = "https://www.youtube-nocookie.com/embed/";
 
-
-
     /**
      * @param string $cacheBaseUrl
      */
@@ -52,7 +50,7 @@ class YtThumbLoader{
      */
     public function getCacheDirectory()
     {
-        return $this->cacheDirectory;
+        return trim($this->cacheDirectory);
     }
 
     /**
@@ -60,7 +58,7 @@ class YtThumbLoader{
      */
     public function setCacheDuration($cacheDuration)
     {
-        $this->cacheDuration = int_val($cacheDuration);
+        $this->cacheDuration = intval($cacheDuration);
     }
 
     /**
@@ -119,6 +117,9 @@ class YtThumbLoader{
             die($err_msg);
         }
 
+        // run garbage collector
+        $this->garbageCollector();
+
         // creating youtube url from ID, such as
         // https://img.youtube.com/vi/buCD-_1UPn4/maxresdefault.jpg
         $yt_img_url = "https://img.youtube.com/vi/{$this->getVideoID()}/maxresdefault.jpg";
@@ -161,7 +162,7 @@ class YtThumbLoader{
             if(time()-filemtime($saveto) < $this->getCacheDuration()){
                 return true;
             } else {
-                // if file thumbnail EXPORED, delete file
+                // if file thumbnail EXPIRED, delete file
                 unlink($saveto);
             }
         }
@@ -195,5 +196,22 @@ class YtThumbLoader{
             return true;
         }
 
+    }
+
+    /**
+     * return void
+     */
+    private function garbageCollector(){
+        // get all .jpg files in cache directory
+        $cachedir = $this->getCacheDirectory();
+        $files = glob($cachedir."/*.jpg");
+
+        // check all .jpg files if they have expired
+        foreach($files as $file){
+            if(time()-filemtime($file) >= $this->getCacheDuration()) {
+                // if file thumbnail EXPIRED, delete file
+                unlink($file);
+            }
+        }
     }
 }
