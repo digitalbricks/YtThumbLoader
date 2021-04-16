@@ -8,7 +8,7 @@ require 'YtThumbLoader.php';
 $ytvideo = new YtThumbLoader();
 
 // set cache directory
-$ytvideo->setCachdDrectory("Path/to/your/cache-directory");
+$ytvideo->setCacheDirectory("Path/to/your/cache-directory");
 
 // set cache base url (needed for return of full qualified thumbnail image url)
 $ytvideo->setCacheBaseUrl("https://example.com/ytcache");

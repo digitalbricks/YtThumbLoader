@@ -113,7 +113,7 @@ $videourl = $ytvideo->getVideoUrl();
             <div class="yt-video__overlay">
                 <div class="yt-video__info">
 
-                    <div class="yt-video__playbutton" data-target='yt-iframe-<?=$ytvideo->getVideoID()?>' width="60" height="60">
+                    <div class="yt-video__playbutton" data-target='yt-iframe-<?=$ytvideo->getVideoID()?>'>
                         <svg height="60" viewBox="0 0 60 60" width="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" fill="#0080c5" r="30"/><path d="m46.63 30-26.45-15.27v30.54z" fill="#fff"/></svg>
                     </div>
                     <div class="yt-video__text">
